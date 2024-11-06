@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSH Cheat Sheet for Arch Linux</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            margin: 0;
+        }
+        .section p {
+            padding: 10px;
+            line-height: 1.6;
+        }
+        .code-block {
+            background-color: #2d3e50;
+            color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .toggle-btn {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .toggle-btn:hover {
+            background-color: #16a085;
+        }
+        .details {
+            display: none;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            text-align: center;
+            padding: 20px;
+        }
+        footer img {
+            max-width: 100px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SSH Cheat Sheet for Arch Linux</h1>
+    <p>Everything you need to know about SSH and its usage on Arch Linux</p>
+</header>
+
+<div class="container">
+
+    <div class="section">
+        <h2>What is SSH?</h2>
+        <p>SSH (Secure Shell) is a protocol that allows secure remote login to another computer over a network. It uses encryption to protect the data transferred between the client and the server, ensuring the confidentiality and integrity of the communication.</p>
+    </div>
+
+    <div class="section">
+        <h2>Install SSH Server on Arch Linux</h2>
+        <p>To install the OpenSSH server package on Arch Linux, follow these steps:</p>
+        <button class="toggle-btn" onclick="toggleDetails('ssh-install')">Show Commands</button>
+        <div id="ssh-install" class="details">
+            <pre class="code-block">
+sudo pacman -S openssh  # Install OpenSSH server
+sudo systemctl enable sshd  # Enable SSH service at boot
+sudo systemctl start sshd   # Start SSH service
+            </pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Start and Enable SSH Service</h2>
+        <p>To start and enable the SSH service on Arch Linux:</p>
+        <button class="toggle-btn" onclick="toggleDetails('start-ssh')">Show Commands</button>
+        <div id="start-ssh" class="details">
+            <pre class="code-block">
+sudo systemctl start sshd  # Start SSH service
+sudo systemctl enable sshd  # Enable SSH service on boot
+            </pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>SSH Command Syntax</h2>
+        <p>Use SSH to connect to a remote server with the following syntax:</p>
+        <button class="toggle-btn" onclick="toggleDetails('ssh-syntax')">Show Syntax</button>
+        <div id="ssh-syntax" class="details">
+            <pre class="code-block">
+ssh [user]@[hostname_or_ip_address]  # Basic SSH command
+            </pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>SSH Key-Based Authentication</h2>
+        <p>To use key-based authentication for a more secure login process:</p>
+        <button class="toggle-btn" onclick="toggleDetails('ssh-keys')">Show Commands</button>
+        <div id="ssh-keys" class="details">
+            <pre class="code-block">
+# Generate SSH keys
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+# Copy the public key to the server
+ssh-copy-id user@hostname_or_ip
+# SSH login with keys
+ssh user@hostname_or_ip
+            </pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Common SSH Options</h2>
+        <p>Here are some useful SSH options:</p>
+        <button class="toggle-btn" onclick="toggleDetails('ssh-options')">Show Options</button>
+        <div id="ssh-options" class="details">
+            <pre class="code-block">
+# Run a command on the remote server
+ssh user@hostname_or_ip "command_to_run"
+
+# Use a specific port
+ssh -p 2222 user@hostname_or_ip
+
+# Disable strict host key checking
+ssh -o StrictHostKeyChecking=no user@hostname_or_ip
+            </pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Troubleshooting</h2>
+        <p>Common SSH issues and troubleshooting steps:</p>
+        <button class="toggle-btn" onclick="toggleDetails('ssh-troubleshoot')">Show Tips</button>
+        <div id="ssh-troubleshoot" class="details">
+            <pre class="code-block">
+# Check SSH status
+sudo systemctl status sshd
+
+# Restart SSH service
+sudo systemctl restart sshd
+
+# Check SSH connection issues
+ssh -v user@hostname_or_ip  # Verbose mode for debugging
+            </pre>
+        </div>
+    </div>
+
+    <!-- Additional Useful SSH Commands -->
+    <div class="section">
+        <h2>30 Useful SSH Commands and Tips</h2>
+        <button class="toggle-btn" onclick="toggleDetails('ssh-tips')">Show All Tips</button>
+        <div id="ssh-tips" class="details">
+            <ul class="code-block">
+                <li>ssh -p [port] user@hostname  # Connect on a specific port</li>
+                <li>ssh -i [private_key] user@hostname  # Specify a private key</li>
+                <li>scp file.txt user@hostname:/path/to/destination  # Copy file via SSH</li>
+                <li>sftp user@hostname  # Interactive file transfer over SSH</li>
+                <li>ssh user@hostname 'command'  # Execute a remote command</li>
+                <li>ssh user@hostname 'ls -l'  # List remote directory</li>
+                <li>ssh-copy-id user@hostname  # Copy SSH public key to server</li>
+                <li>ssh -X user@hostname  # Enable X11 forwarding for GUI apps</li>
+                <li>ssh -A user@hostname  # Enable agent forwarding</li>
+                <li>ssh -v user@hostname  # Debug SSH connection</li>
+                <li>ssh user@hostname 'mkdir -p /path'  # Create directories on remote machine</li>
+                <li>sshfs user@hostname:/remote/path /local/path  # Mount remote directories</li>
+                <li>ssh -L [local_port]:[remote_host]:[remote_port] user@hostname  # Port forwarding</li>
+                <li>ssh -R [remote_port]:[local_host]:[local_port] user@hostname  # Reverse port forwarding</li>
+                <li>ssh -C user@hostname  # Enable compression for faster transfers</li>
+                <li>ssh -q user@hostname  # Quiet mode (no output)</li>
+                <li>ssh user@hostname 'tail -f /var/log/syslog'  # View logs remotely</li>
+                <li>ssh user@hostname 'ps aux'  # View processes on remote system</li>
+                <li>ssh user@hostname 'free -m'  # View memory usage on remote system</li>
+                <li>ssh user@hostname 'df -h'  # Check disk usage remotely</li>
+                <li>ssh user@hostname 'uptime'  # Check uptime on remote server</li>
+                <li>ssh user@hostname 'who'  # See who is logged in on the remote server</li>
+                <li>ssh user@hostname 'cat /etc/os-release'  # View OS version</li>
+                <li>ssh -t user@hostname 'sudo reboot'  # Reboot remote server</li>
+                <li>ssh user@hostname 'shutdown -h now'  # Shutdown remote server</li>
+                <li>ssh -o ConnectTimeout=10 user@hostname  # Set connection timeout</li>
+                <li>ssh -o UserKnownHostsFile=/dev/null user@hostname  # Disable known hosts check</li>
+                <li>ssh -o PreferredAuthentications=password user@hostname  # Force password authentication</li>
+                <li>ssh user@hostname 'uname -a'  # Get system information</li>
+                <li>ssh -t user@hostname 'exit'  # Exit remote session after command</li>
+                <li>ssh user@hostname 'top'  # View system resource usage remotely</li>
+                <li>ssh user@hostname 'dmesg'  # View kernel messages</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <img src="https://i.ibb.co/NVjTCKW/tag.png" alt="SSH Cheat Sheet">
+</footer>
+
+<script>
+    function toggleDetails(id) {
+        const details = document.getElementById(id);
+        if (details.style.display === "none" || details.style.display === "") {
+            details.style.display = "block";
+        } else {
+            details.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
